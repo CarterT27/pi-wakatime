@@ -1,0 +1,14 @@
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+
+# Temp
+*.tmp
+.wakatime/
+
+# Docs (keep README.md, LICENSE, CHANGELOG.md)
+docs/
