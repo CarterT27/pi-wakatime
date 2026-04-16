@@ -74,16 +74,20 @@ export default function (pi: ExtensionAPI) {
         category: "ai coding"
       });
     } else if (event.toolName === "edit") {
-      const newText = input.newText || "";
-      const oldText = input.oldText || "";
-      const newLines = newText.split('\n').length;
-      const oldLines = oldText.split('\n').length;
-      const lineChanges = newLines - oldLines;
+      const edits = Array.isArray(input.edits) ? input.edits : [];
+
+      const lineChanges = edits.reduce((total: number, edit: any) => {
+        const newText = edit?.newText || "";
+        const oldText = edit?.oldText || "";
+        const newLines = newText === "" ? 0 : newText.split('\n').length;
+        const oldLines = oldText === "" ? 0 : oldText.split('\n').length;
+        return total + Math.abs(newLines - oldLines);
+      }, 0);
       
       sender.send(filePath, {
         projectRoot,
         isWrite: true,
-        lineChanges: Math.abs(lineChanges), // WakaTime expects positive number
+        lineChanges,
         category: "ai coding"
       });
     }
@@ -99,7 +103,8 @@ export default function (pi: ExtensionAPI) {
     
     sender.send(projectFile, {
       projectRoot: ctx.cwd,
-      category: "ai coding" 
+      category: "ai coding",
+      isUnsavedEntity: true,
     });
   });
 }

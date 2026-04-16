@@ -39,6 +39,7 @@ export class HeartbeatSender {
     file: string,
     params: {
       isWrite?: boolean;
+      isUnsavedEntity?: boolean;
       lineChanges?: number;
       projectRoot?: string;
       category?: string;
@@ -76,6 +77,10 @@ export class HeartbeatSender {
 
     if (params.isWrite) {
       args.push('--write');
+    }
+
+    if (params.isUnsavedEntity) {
+      args.push('--is-unsaved-entity');
     }
 
     if (params.lineChanges !== undefined) {
