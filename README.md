@@ -9,7 +9,6 @@ Track your AI coding activity, including time spent prompting and lines of code 
 - **Automated CLI Management**: Automatically downloads and installs `wakatime-cli` to `~/.wakatime/` if not present.
 - **File Activity Tracking**: Tracks file reads, writes, and edits performed by the agent.
 - **AI Coding Metrics**: Tags write and edit operations as "ai coding" with line change counts, allowing you to see how much code is AI-generated on your WakaTime dashboard.
-- **Session Tracking**: Sends heartbeats during conversation turns to track "thinking" and "planning" time even when no files are touched.
 - **Cross-Platform**: Supports Windows, macOS, and Linux.
 
 ## Installation
@@ -56,7 +55,6 @@ The plugin only logs errors by default. If you see no output, everything is work
 ### Verify heartbeats are being sent
 Check WakaTime dashboard at https://wakatime.com/dashboard - you should see:
 - Project name from your working directory
-- `.pi-session` for conversation activity
 - Individual files you've read/written
 - "ai coding" category for AI-generated code
 

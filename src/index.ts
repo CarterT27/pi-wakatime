@@ -93,18 +93,8 @@ export default function (pi: ExtensionAPI) {
     }
   });
 
-  // Track general interaction on every turn
-  pi.on("turn_start", async (event, ctx) => {
-    if (!initialized) await initPromise;
-    
-    // We attribute this to a generic activity file in the project
-    // This ensures time is tracked even if no file tools are used (e.g. Q&A)
-    const projectFile = path.join(ctx.cwd, ".pi-session");
-    
-    sender.send(projectFile, {
-      projectRoot: ctx.cwd,
-      category: "ai coding",
-      isUnsavedEntity: true,
-    });
-  });
+  // Intentionally do not send heartbeats on turn_start.
+  // Reporting conversational turns with no file activity can look like
+  // automated/AFK activity to WakaTime. Only actual file tool results above
+  // are reported.
 }

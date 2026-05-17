@@ -47,11 +47,8 @@ export class HeartbeatSender {
   ) {
     const now = Date.now();
     
-    // Special handling for .pi-session: always send to track active time
-    const isSessionFile = file.endsWith('.pi-session');
-    
-    // Only debounce if it's the same file, NOT a write operation, and NOT .pi-session
-    if (!params.isWrite && !isSessionFile && file === this.lastFile && now - this.lastHeartbeat < this.DEBOUNCE_TIME) {
+    // Only debounce if it's the same file and NOT a write operation.
+    if (!params.isWrite && file === this.lastFile && now - this.lastHeartbeat < this.DEBOUNCE_TIME) {
         return;  // Silent debounce
     }
 
